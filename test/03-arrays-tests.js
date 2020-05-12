@@ -378,7 +378,8 @@ describe('03-arrays-tasks', () => {
       }, {
         arr: [1],
         expected: [1],
-      }, {
+      },
+      {
         arr: ['a', 'b'],
         expected: ['a', 'b', 'b'],
       }, {
