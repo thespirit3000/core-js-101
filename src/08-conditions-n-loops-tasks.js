@@ -315,8 +315,14 @@ function isCreditCardNumber(ccn) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+const reducer = (accumulator, currentValue) => accumulator + currentValue;
+function getDigitalRoot(num) {
+  let numToString = num.toString();
+  if (numToString.length === 1) {
+    return +numToString;
+  }
+  numToString = numToString.split('').map((elem) => Number(elem)).reduce(reducer);
+  return getDigitalRoot(numToString);
 }
 
 /**
@@ -340,10 +346,20 @@ function getDigitalRoot(/* num */) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+const pairBracket = ['[]', '()', '{}', '<>'];
+function isBracketsBalanced(str) {
+  const { length } = pairBracket;
+  let resString = str;
+  for (let index = 0; index < length;) {
+    if (resString.indexOf(pairBracket[index]) !== -1) {
+      resString = resString.replace(pairBracket[index], '');
+      index = 0;
+    } else {
+      index += 1;
+    }
+  }
+  return resString === '';
 }
-
 /**
  * Returns the string with n-ary (binary, ternary, etc, where n <= 10)
  * representation of specified number.
